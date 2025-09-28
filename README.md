@@ -11,5 +11,16 @@ We also noticed a clear pattern: bookings surged 2–3 weeks before major holida
 
 
 Diagnostic Analysis:
-"The revenue growth correlates with increased corporate travel in Q1 and tourist season starting in March. Kigali-Nairobi's success is driven by diplomatic and business traffic between capital cities. The 22% March growth aligns with Easter holiday travel patterns and a successful 'Early Bird' promotion."
+The revenue growth correlates with increased corporate travel in Q1 and tourist season starting in March. Kigali-Nairobi's success is driven by diplomatic and business traffic between capital cities. The 22% March growth aligns with Easter holiday travel patterns and a successful 'Early Bird' promotion.
+
+
+To build on this success, we should:
+
+ .Introduce dynamic pricing on the Kigali–Nairobi route during peak demand to maximize revenue.
+
+ .Add more Business class seats (about 20% more capacity) on routes where we see strong premium demand.
+
+ .Launch a loyalty program targeting our top 30% of spenders, encouraging them to book more frequently.
+
+ .Start promotions and incentives at least three weeks before peak travel periods to capture the early planners who drive our booking spikes.
 
