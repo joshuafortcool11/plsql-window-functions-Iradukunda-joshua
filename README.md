@@ -4,6 +4,21 @@ Instructor: Eric Maniraguha
 NAME: Iradukunda joshua 27967
 Submission Date: September 29, 2025
 
+RAILWAY BOOKING MANAGEMENT SYSTEM
+
+A comprehensive SQL database system for managing railway bookings, passenger information, and business analytics.
+
+KEY FEATURES
+   -Passenger management and booking history
+
+   -Route and schedule management
+
+   -Revenue analysis and reporting
+
+   -Performance analytics and insights
+
+   -Customer spending behavior tracking
+
 Descriptive:
 Our sales performance showed strong momentum this year — revenue nearly doubled from 8.2M RWF in January to 15.3M RWF in April.
 The Kigali–Nairobi route was consistently our best performer, and Business class trains brought in about 40% more revenue per booking than Economy class.
@@ -24,3 +39,9 @@ To build on this success, we should:
 
  .Start promotions and incentives at least three weeks before peak travel periods to capture the early planners who drive our booking spikes.
 
+ .Top revenue routes by quarter and Route profitability quartiles
+
+
+
+ANALYITICAL TOOL
+  -mariaDB
