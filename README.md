@@ -4,9 +4,12 @@ Instructor: Eric Maniraguha
 NAME: Iradukunda joshua 27967
 Submission Date: September 29, 2025
 
-East Africa Rail Network (EARN):-A regional railway operator connecting Rwanda, Uganda, Kenya, and Tanzania.
-  EARN struggles to optimize ticket pricing, manage capacity, and identify profitable routes. The current system provides basic sales data but lacks advanced analytics to understand passenger behavior,       route performance trends, and seasonal patterns across different train classes.
+Descriptive:
+Our sales performance showed strong momentum this year — revenue nearly doubled from 8.2M RWF in January to 15.3M RWF in April.
+The Kigali–Nairobi route was consistently our best performer, and Business class trains brought in about 40% more revenue per booking than Economy class.
+We also noticed a clear pattern: bookings surged 2–3 weeks before major holidays, showing customers like to plan ahead for travel.
 
-   This analysis will enable data-driven decisions for dynamic pricing, capacity planning, and marketing strategies by identifying top-performing routes, understanding booking trends, and segmenting           passengers by value.
 
-   <img width="1263" height="676" alt="plsql" src="https://github.com/user-attachments/assets/63c9d18c-c916-4caa-8f48-8241daa8611c" 
+Diagnostic Analysis:
+"The revenue growth correlates with increased corporate travel in Q1 and tourist season starting in March. Kigali-Nairobi's success is driven by diplomatic and business traffic between capital cities. The 22% March growth aligns with Easter holiday travel patterns and a successful 'Early Bird' promotion."
+
