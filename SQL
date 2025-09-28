@@ -114,7 +114,44 @@ FROM bookings
 GROUP BY YEAR(travel_date), MONTH(travel_date)
 ORDER BY year, month;
 
-#oute Profitability Quartiles
+#ROUTES PROFITABILITY QUARTILES
 
+ SELECT 
+    CONCAT(r.origin_station, ' to ', r.destination_station) AS route_name,
+    SUM(ticket_price * passenger_count) AS total_revenue,
+    COUNT(*) AS total_bookings,
+    -- Manually determine performance group
+    CASE 
+        WHEN SUM(ticket_price * passenger_count) > 10000 THEN 'High Revenue'
+        WHEN SUM(ticket_price * passenger_count) > 5000 THEN 'Medium Revenue'
+        WHEN SUM(ticket_price * passenger_count) > 1000 THEN 'Low Revenue'
+        ELSE 'Very Low Revenue'
+    END AS performance_group
+FROM bookings b
+JOIN routes r ON b.route_id = r.route_id
+GROUP BY r.origin_station, r.destination_station
+ORDER BY total_revenue DESC;
+
+#PASSENGER SPENGING
+
+  #Step 1: Create temporary table
+CREATE TEMPORARY TABLE passenger_totals AS
+SELECT 
+    p.passenger_name,
+    SUM(ticket_price * passenger_count) AS total_spent
+FROM bookings b
+JOIN passengers p ON b.passenger_id = p.passenger_id
+GROUP BY p.passenger_name;
+
+  #Step 2: Calculate cumulative distribution
+SELECT 
+    p1.passenger_name,
+    p1.total_spent,
+    ROUND(
+        (SELECT COUNT(*) FROM passenger_totals p2 WHERE p2.total_spent <= p1.total_spent) / 
+        (SELECT COUNT(*) FROM passenger_totals),
+    2) AS cumulative_distribution
+FROM passenger_totals p1
+ORDER BY p1.total_spent;
 
 COMMIT;
