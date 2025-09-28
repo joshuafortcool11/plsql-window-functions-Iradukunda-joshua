@@ -1,30 +1,120 @@
-#creating tables
+#CREATING TABLES
 CREATE TABLE routes (
-    route_id NUMBER PRIMARY KEY,
-    origin_station VARCHAR2(100),
-    destination_station VARCHAR2(100),
-    distance_km NUMBER
+    route_id INT PRIMARY KEY,
+    origin_station VARCHAR(100),
+    destination_station VARCHAR(100),
+    distance_km INT
 );
 
 CREATE TABLE trains (
-    train_id NUMBER PRIMARY KEY,
-    train_name VARCHAR2(100),
-    train_class VARCHAR2(50)
+    train_id INT PRIMARY KEY,
+    train_name VARCHAR(100),
+    train_class VARCHAR(50)
 );
 
 CREATE TABLE passengers (
-    passenger_id NUMBER PRIMARY KEY,
-    passenger_name VARCHAR2(100),
-    passenger_type VARCHAR2(50)
+    passenger_id INT PRIMARY KEY,
+    passenger_name VARCHAR(100),
+    passenger_type VARCHAR(50)
 );
 
 CREATE TABLE bookings (
-    booking_id NUMBER PRIMARY KEY,
-    route_id NUMBER REFERENCES routes(route_id),
-    train_id NUMBER REFERENCES trains(train_id),
-    passenger_id NUMBER REFERENCES passengers(passenger_id),
+    booking_id INT PRIMARY KEY,
+    route_id INT REFERENCES routes(route_id),
+    train_id INT REFERENCES trains(train_id),
+    passenger_id INT REFERENCES passengers(passenger_id),
     booking_date DATE,
     travel_date DATE,
-    ticket_price NUMBER,
-    passenger_count NUMBER
+    ticket_price INT,
+    passenger_count INT
 );
+
+#INSERTING SAMPLE DATA
+INSERT INTO routes VALUES (101, 'Kigali', 'Kampala', 450);
+INSERT INTO routes VALUES (102, 'Nairobi', 'Mombasa', 480);
+INSERT INTO routes VALUES (103, 'Kampala', 'Nairobi', 600);
+INSERT INTO routes VALUES (104, 'Kigali', 'Nairobi', 850);
+INSERT INTO routes VALUES (105, 'Mombasa', 'Kampala', 920);
+
+INSERT INTO trains VALUES (201, 'Victoria Express', 'Business');
+INSERT INTO trains VALUES (202, 'Savannah Runner', 'Economy');
+INSERT INTO trains VALUES (203, 'Highlands Cruiser', 'First Class');
+INSERT INTO trains VALUES (204, 'Lakeside Commuter', 'Economy');
+
+INSERT INTO passengers VALUES (301, 'Alice Uwase', 'Regular');
+INSERT INTO passengers VALUES (302, 'John Kamau', 'Frequent');
+INSERT INTO passengers VALUES (303, 'Sarah Naki', 'Corporate');
+INSERT INTO passengers VALUES (304, 'David Omondi', 'Regular');
+INSERT INTO passengers VALUES (305, 'Grace Tuyishime', 'Frequent');
+
+
+INSERT INTO bookings VALUES (401, 101, 201, 301, DATE '2024-01-05', DATE '2024-01-10', 35000, 1);
+INSERT INTO bookings VALUES (402, 102, 202, 302, DATE '2024-01-08', DATE '2024-01-12', 28000, 2);
+INSERT INTO bookings VALUES (403, 101, 203, 303, DATE '2024-01-12', DATE '2024-01-15', 45000, 1);
+INSERT INTO bookings VALUES (404, 103, 201, 304, DATE '2024-01-15', DATE '2024-01-20', 32000, 1);
+INSERT INTO bookings VALUES (405, 104, 202, 305, DATE '2024-01-18', DATE '2024-01-22', 38000, 3);
+INSERT INTO bookings VALUES (406, 105, 203, 301, DATE '2024-02-05', DATE '2024-02-10', 42000, 2);
+INSERT INTO bookings VALUES (407, 101, 201, 302, DATE '2024-02-08', DATE '2024-02-12', 35000, 1);
+INSERT INTO bookings VALUES (408, 102, 202, 303, DATE '2024-02-12', DATE '2024-02-15', 28000, 2);
+INSERT INTO bookings VALUES (409, 103, 203, 304, DATE '2024-02-15', DATE '2024-02-20', 48000, 1);
+INSERT INTO bookings VALUES (410, 104, 201, 305, DATE '2024-02-18', DATE '2024-02-22', 38000, 3);
+INSERT INTO bookings VALUES (411, 101, 202, 301, DATE '2024-03-05', DATE '2024-03-10', 33000, 1);
+INSERT INTO bookings VALUES (412, 102, 203, 302, DATE '2024-03-08', DATE '2024-03-12', 44000, 2);
+INSERT INTO bookings VALUES (413, 103, 201, 303, DATE '2024-03-12', DATE '2024-03-15', 32000, 1);
+INSERT INTO bookings VALUES (414, 104, 202, 304, DATE '2024-03-15', DATE '2024-03-20', 38000, 2);
+INSERT INTO bookings VALUES (415, 105, 203, 305, DATE '2024-03-18', DATE '2024-03-22', 42000, 1);
+INSERT INTO bookings VALUES (416, 101, 201, 301, DATE '2024-04-05', DATE '2024-04-10', 35000, 1);
+INSERT INTO bookings VALUES (417, 102, 202, 302, DATE '2024-04-08', DATE '2024-04-12', 28000, 3);
+INSERT INTO bookings VALUES (418, 103, 203, 303, DATE '2024-04-12', DATE '2024-04-15', 48000, 1);
+INSERT INTO bookings VALUES (419, 104, 201, 304, DATE '2024-04-15', DATE '2024-04-20', 38000, 2);
+INSERT INTO bookings VALUES (420, 105, 202, 305, DATE '2024-04-18', DATE '2024-04-22', 29000, 1);
+
+
+
+#THE REVENUE GENERETED
+SELECT route_name, quarter, total_revenue, route_rank
+FROM (
+    SELECT 
+        CONCAT(r.origin_station, ' to ', r.destination_station) AS route_name,
+        CONCAT('Q', QUARTER(b.travel_date)) AS quarter,
+        SUM(b.ticket_price * b.passenger_count) AS total_revenue,
+        RANK() OVER (
+            PARTITION BY QUARTER(b.travel_date)
+            ORDER BY SUM(b.ticket_price * b.passenger_count) DESC
+        ) AS route_rank
+    FROM bookings b
+    JOIN routes r ON b.route_id = r.route_id
+    GROUP BY r.origin_station, r.destination_station, QUARTER(b.travel_date)
+) ranked_routes
+WHERE route_rank <= 3
+ORDER BY quarter, route_rank;
+
+
+#MONTH MOVING AVERAGE OF DAILY BOOKING
+
+SELECT 
+    travel_date,
+    COUNT(*) AS daily_bookings,
+    ROUND(AVG(COUNT(*)) OVER (
+        ORDER BY travel_date
+        ROWS BETWEEN 2 PRECEDING AND CURRENT ROW
+    ), 2) AS moving_avg_3month
+FROM bookings
+GROUP BY travel_date
+ORDER BY travel_date;
+
+
+#PASSENGER GROWTH OVERTIME
+
+SELECT 
+    YEAR(travel_date) AS year,
+    MONTH(travel_date) AS month,
+    SUM(passenger_count) AS monthly_passengers
+FROM bookings
+GROUP BY YEAR(travel_date), MONTH(travel_date)
+ORDER BY year, month;
+
+#oute Profitability Quartiles
+
+
+COMMIT;
