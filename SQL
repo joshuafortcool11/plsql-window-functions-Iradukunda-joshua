@@ -1,0 +1,30 @@
+#creating tables
+CREATE TABLE routes (
+    route_id NUMBER PRIMARY KEY,
+    origin_station VARCHAR2(100),
+    destination_station VARCHAR2(100),
+    distance_km NUMBER
+);
+
+CREATE TABLE trains (
+    train_id NUMBER PRIMARY KEY,
+    train_name VARCHAR2(100),
+    train_class VARCHAR2(50)
+);
+
+CREATE TABLE passengers (
+    passenger_id NUMBER PRIMARY KEY,
+    passenger_name VARCHAR2(100),
+    passenger_type VARCHAR2(50)
+);
+
+CREATE TABLE bookings (
+    booking_id NUMBER PRIMARY KEY,
+    route_id NUMBER REFERENCES routes(route_id),
+    train_id NUMBER REFERENCES trains(train_id),
+    passenger_id NUMBER REFERENCES passengers(passenger_id),
+    booking_date DATE,
+    travel_date DATE,
+    ticket_price NUMBER,
+    passenger_count NUMBER
+);
