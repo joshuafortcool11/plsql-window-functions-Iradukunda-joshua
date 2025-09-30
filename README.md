@@ -26,7 +26,7 @@ We also noticed a clear pattern: bookings surged 2–3 weeks before major holida
 
 
 Diagnostic Analysis:
-The revenue growth correlates with increased corporate travel in Q1 and tourist season starting in March. Kigali-Nairobi's success is driven by diplomatic and business traffic between capital cities. The 22% March growth aligns with Easter holiday travel patterns and a successful 'Early Bird' promotion.
+The revenue growth correlates with increased corporate travel in Q1 and tourist season starting in March. Kigali-Nairobi's success is driven by diplomatic and business traffic between capital cities. 
 
 
 To build on this success, we should:
