@@ -22,7 +22,7 @@ KEY FEATURES
 Descriptive:
 Our sales performance showed strong momentum this year — revenue nearly doubled from 8.2M RWF in January to 15.3M RWF in April.
 The Kigali–Nairobi route was consistently our best performer, and Business class trains brought in about 40% more revenue per booking than Economy class.
-We also noticed a clear pattern: bookings surged 2–3 weeks before major holidays, showing customers like to plan ahead for travel.
+We also noticed a clear pattern: bookings surged 2–3 weeks before major holidays, showing customers like to plan ahead for travel. 
 
 
 Diagnostic Analysis:
